@@ -1,6 +1,9 @@
 node_modules/
 dist/
 .vscode/
+.agents/
+.codex/
+Nova pasta/
 
 *.md
 *.log
