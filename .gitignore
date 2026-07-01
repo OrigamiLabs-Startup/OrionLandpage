@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vscode/
+
+*.md
+*.log
+npm-debug.log*
+
+skill-drafts/
+Orion Imagens/
+*.af
+
+Daniel.jpeg
+Identidade Visual.jpeg
+
+.DS_Store
+Thumbs.db
