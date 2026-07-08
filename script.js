@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 const h = React.createElement;
@@ -7,17 +7,8 @@ const navItems = [
   ["História", "#historia"],
   ["Essência", "#essencia"],
   ["Marca", "#marca"],
-  ["Sued", "#sued"],
   ["Equipe", "#equipe"],
   ["Parcerias", "#parcerias"],
-];
-
-const manifestoLines = [
-  "A excelência não acontece por acaso.",
-  "Ela nasce do foco em cada movimento.",
-  "Da precisão em cada ajuste.",
-  "Da disciplina em cada treino.",
-  "E da coragem de mirar mais longe pela Paraíba.",
 ];
 
 const principles = [
@@ -53,50 +44,11 @@ const mission = [
 const brandSymbols = [
   ["Constelação", "Direção, referência, trajetória, excelência e busca por um caminho."],
   ["Alvo", "Propósito, foco, clareza de direção e evolução constante."],
-  ["Flecha", "Trajetória, precisão, movimento e busca por objetivo."],
+  ["Flash", "Energia, movimento, decisão e velocidade para transformar intenção em resultado."],
   ["Escudo", "Pertencimento, tradição, força, união e orgulho de vestir a camisa."],
-  ["Verde", "Crescimento, renovação, vitalidade e esperança no futuro da modalidade."],
-  ["2026", "O ponto de partida de uma jornada construída com propósito."],
 ];
 
-const suedTimeline = [
-  {
-    year: "2024",
-    facts: [
-      "Campeão brasileiro individual na categoria Barebow.",
-      "Vice-campeão brasileiro por equipe.",
-      "Campeão invicto no Brasil nas provas indoor e outdoor na categoria Barebow.",
-    ],
-  },
-  {
-    year: "2025",
-    facts: [
-      "Migrou para a modalidade Recurvo.",
-      "Campeão paraibano indoor e outdoor.",
-      "Sexto lugar na classificação geral do Campeonato Brasileiro Paralímpico.",
-    ],
-  },
-  {
-    year: "2026",
-    facts: [
-      "Quinto lugar no Campeonato Brasileiro Paralímpico, garantindo vaga na seletiva da Seleção Brasileira Paralímpica.",
-      "Quarto lugar no Campeonato Brasileiro Paralímpico de 2026.",
-      "Quarta colocação na seletiva da Seleção Paralímpica.",
-    ],
-  },
-];
 
-const danielCredentials = [
-  "Bacharel em Educação Física - CREF 010273-G/PB",
-  "Instrutor Nível II - Brasil Arco / CBTARCO",
-  "Juiz estadual de tiro com arco",
-  "Campeão Paraibano 2025 Outdoor 70m - Recurvo Masculino Adulto",
-  "Técnico do Bolsa Esporte Paraíba",
-  "Técnico premiado no Prêmio do Esporte Paraibano 2024",
-  "Técnico convidado para o 13º Camping Militar e Civil Paralímpico 2026 no CPB",
-  "Ex-Diretor Técnico da FPBTARCO",
-  "Técnico do atleta paralímpico Sued Emmanuel",
-];
 
 const organization = [
   ["Presidente", "Sued Emmanuel Espínola"],
@@ -107,23 +59,69 @@ const organization = [
   ["Coordenadora esportiva", "Michele Soares de Farias"],
 ];
 
-const athletes = [
-  ["Sued Emmanuel Espínola", "Atleta paralímpico / Presidente"],
-  ["Daniel Simões Gomide", "Recurvo masculino adulto / Técnico"],
-  ["Roberto Sérgio de Figueiroa", "Atleta filiado ativo"],
-  ["Thiago Silva de Lima", "Atleta filiado ativo / Treinador"],
-  ["Euclides Ponce Leon Neto", "Atleta filiado ativo"],
-];
 
-const partnerPaths = [
-  "Patrocínio financeiro",
-  "Empresas privadas",
-  "Marcas interessadas em visibilidade",
-  "Apoio institucional",
-  "Instituições públicas",
-  "Governo e prefeituras",
-  "Projetos de incentivo ao esporte",
-  "Novos atletas",
+const contactLinks = {
+  practice: "#", // TODO: substituir pelo link oficial de prática quando definido.
+  support: "#", // TODO: substituir pelo link oficial de apoio/patrocínio quando definido.
+  talk: "#", // TODO: substituir pelo link oficial de atendimento quando definido.
+  email: "mailto:arqueariaorion@gmail.com",
+  instagram: "https://instagram.com/oriontirocomarco",
+};
+
+const teamMembers = [
+  {
+    id: "sued",
+    nome: "Sued",
+    name: "Sued",
+    role: "Presidente",
+    foto: "assets/sued.jpeg",
+    image: "assets/sued.jpeg",
+    alt: "Sued, presidente da Órion Elite",
+    details: {
+      funcao: "Presidente",
+      modalidade: "Liderança institucional",
+      foco: "Direção, representatividade e fortalecimento do clube",
+    },
+    description: "Presidente da Órion Elite e uma das lideranças responsáveis pela direção institucional do clube.",
+    biography: "Atua na construção institucional da Órion, conectando a história do clube com a organização necessária para sustentar atletas, treinos e novas oportunidades para o tiro com arco na Paraíba.",
+  },
+  {
+    id: "daniel",
+    nome: "Daniel",
+    name: "Daniel",
+    role: "Diretor técnico",
+    foto: "assets/daniel-gomide.jpeg",
+    image: "assets/daniel-gomide.jpeg",
+    alt: "Daniel, diretor técnico da Órion Elite",
+    details: {
+      funcao: "Diretor técnico",
+      modalidade: "Organização técnica",
+      foco: "Treinamentos, método e estrutura esportiva",
+    },
+    description: "Diretor técnico, responsável por apoiar a organização técnica, treinamentos e estrutura esportiva da Órion.",
+    biography: "Contribui para transformar experiência esportiva em método de treino, apoiando a rotina técnica e a estrutura que permite ao clube evoluir com consistência.",
+  },
+  {
+    id: "tiago",
+    nome: "Tiago",
+    name: "Tiago",
+    role: "Atleta de arco composto / Treinador de arco composto",
+    foto: "assets/thiago.jpeg",
+    image: "assets/thiago.jpeg",
+    alt: "Tiago, atleta e treinador de arco composto da Órion Elite",
+    details: {
+      funcao: "Atleta e treinador",
+      modalidade: "Arco composto",
+      foco: "Desenvolvimento técnico e evolução esportiva",
+    },
+    description: "Atleta de arco composto e treinador, contribuindo para o desenvolvimento técnico e esportivo da equipe.",
+    biography: "Une prática competitiva e orientação técnica para fortalecer o desenvolvimento dos atletas e ampliar a qualidade do trabalho esportivo dentro da equipe.",
+  },
+];
+const supporterCards = [
+  { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
+  { type: "reserved", text: "Esse espaço está guardado para você." },
+  { type: "reserved", text: "Esse espaço está guardado para você." },
 ];
 
 function cx(...classes) {
@@ -167,8 +165,7 @@ function Header() {
     h(
       "a",
       { className: "brand-lockup", href: "#inicio", "aria-label": "Órion Elite, ir para o início", onClick: () => setOpen(false) },
-      h("span", { className: "brand-mark", "aria-hidden": "true" }, "Ó"),
-      h("span", null, h("strong", null, "Órion"), h("small", null, "Elite"))
+      h("img", { className: "brand-logo", src: "assets/orion-logo.png", alt: "Órion Elite" })
     ),
     h(
       "button",
@@ -191,29 +188,47 @@ function Header() {
   );
 }
 
+
 function Preloader() {
-  const [visible, setVisible] = useState(true);
+  const [leaving, setLeaving] = useState(false);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), 1150);
-    return () => window.clearTimeout(timer);
+    let hideTimer;
+    let removeTimer;
+    const startExit = () => {
+      hideTimer = window.setTimeout(() => setLeaving(true), 520);
+      removeTimer = window.setTimeout(() => setMounted(false), 1320);
+    };
+
+    if (document.readyState === "complete") {
+      startExit();
+    } else {
+      window.addEventListener("load", startExit, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener("load", startExit);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(removeTimer);
+    };
   }, []);
+
+  if (!mounted) return null;
 
   return h(
     "div",
-    { className: cx("preloader", !visible && "is-hidden"), "aria-hidden": !visible },
-    h("div", { className: "preloader-mark" }, h("span", null, "Ó")),
-    h("p", null, "Foco. Precisão. Excelência.")
+    { className: cx("preloader", leaving && "is-leaving"), "aria-hidden": "true" },
+    h("img", { className: "preloader-star", src: "assets/estrela-orion.png", alt: "" })
   );
 }
+
 
 function Hero() {
   return h(
     "section",
     { className: "hero section-dark", id: "inicio", "aria-labelledby": "hero-title" },
     h("div", { className: "hero-bg", "aria-hidden": "true" }),
-    h("div", { className: "hero-grain", "aria-hidden": "true" }),
-    h("div", { className: "target-system", "aria-hidden": "true" }, h("span"), h("span"), h("span"), h("i")),
     h(
       "div",
       { className: "hero-shell" },
@@ -234,24 +249,11 @@ function Hero() {
           h("a", { className: "button button-primary", href: "#historia" }, "Conheça a história"),
           h("a", { className: "button button-secondary", href: "#contato" }, "Quero praticar")
         )
-      ),
-      h(
-        "aside",
-        { className: "hero-panel reveal", "aria-label": "Resumo institucional" },
-        h("span", null, "Jornada inicial"),
-        h("strong", null, "2026"),
-        h("p", null, "Marca esportiva, formação técnica e alto rendimento com orgulho paraibano."),
-        h(
-          "dl",
-          null,
-          h("div", null, h("dt", null, "Modalidade"), h("dd", null, "Olímpico e Paralímpico")),
-          h("div", null, h("dt", null, "Estado"), h("dd", null, "Paraíba")),
-          h("div", null, h("dt", null, "Base"), h("dd", null, "Atletas e técnicos"))
-        )
       )
     )
   );
 }
+
 
 function Manifesto() {
   return h(
@@ -259,24 +261,24 @@ function Manifesto() {
     { className: "manifesto section-light", id: "manifesto", "aria-labelledby": "manifesto-title" },
     h(
       "div",
-      { className: "section-shell manifesto-grid" },
-      h("div", { className: "section-label reveal" }, "Manifesto"),
+      { className: "section-shell" },
       h(
         "div",
-        null,
-        h("h2", { className: "editorial-title reveal", id: "manifesto-title" }, "Resultados são consequência de preparação."),
-        h("div", { className: "manifesto-lines" }, manifestoLines.map((line) => h("p", { className: "line-reveal", key: line }, line))),
-        h(
-          "div",
-          { className: "manifesto-copy reveal" },
-          h("p", null, "A Órion Elite foi criada para quem entende que um atleta não nasce pronto. Ele é formado por método, repetição, escuta, ajuste e uma comunidade que sustenta o processo."),
-          h("p", null, "Carregamos em nosso nome a responsabilidade de inspirar novos talentos, elevar o nível da modalidade e representar nosso estado com orgulho.")
-        ),
-        h("p", { className: "signature reveal" }, "Órion Elite", h("span", null, "Foco. Precisão. Excelência."))
+        { className: "section-heading" },
+        h("p", { className: "eyebrow reveal" }, "Manifesto"),
+        h("h2", { className: "section-title reveal", id: "manifesto-title" }, "Resultados são consequência de preparação"),
+        h("p", { className: "section-intro reveal" }, "A excelência nasce do foco em cada movimento, da precisão em cada ajuste e da coragem de mirar mais longe pela Paraíba.")
+      ),
+      h(
+        "div",
+        { className: "manifesto-copy reveal" },
+        h("p", null, "A Órion Elite foi criada para quem entende que um atleta não nasce pronto. Ele é formado por método, repetição, escuta, ajuste e uma comunidade que sustenta o processo."),
+        h("p", null, "Carregamos em nosso nome a responsabilidade de inspirar novos talentos, elevar o nível da modalidade e representar nosso estado com orgulho.")
       )
     )
   );
 }
+
 
 function Origin() {
   return h(
@@ -289,7 +291,7 @@ function Origin() {
         "div",
         { className: "origin-sticky" },
         h("p", { className: "eyebrow reveal" }, "Origem real"),
-        h(SplitText, { as: "h2", className: "section-title", id: "origin-title" }, "Uma conversa simples. Uma visão de clube."),
+        h(SplitText, { as: "h2", className: "section-title", id: "origin-title" }, "Uma conversa simples. Uma visão de clube"),
         h("div", { className: "gold-line", "aria-hidden": "true" })
       ),
       h(
@@ -313,7 +315,7 @@ function Essence() {
         "div",
         { className: "section-heading" },
         h("p", { className: "eyebrow reveal" }, "Essência"),
-        h(SplitText, { as: "h2", className: "section-title", id: "essence-title" }, "Três princípios. Uma direção."),
+        h(SplitText, { as: "h2", className: "section-title", id: "essence-title" }, "Três princípios. Uma direção"),
         h("p", { className: "section-intro reveal" }, "A excelência é construída através do foco no processo e da precisão em cada detalhe.")
       ),
       h(
@@ -342,7 +344,7 @@ function Mission() {
           "div",
           { className: "mission-left" },
           h("p", { className: "eyebrow reveal" }, "Missão, visão e propósito"),
-          h("h2", { className: "section-title reveal", id: "mission-title" }, "Alto rendimento também é construção institucional."),
+          h("h2", { className: "section-title reveal", id: "mission-title" }, "Alto rendimento também é construção institucional"),
           h("p", { className: "mission-lede reveal" }, "A Órion Elite nasce como clube, mas se organiza como instituição: direção clara, formação contínua e compromisso com o futuro do tiro com arco paraibano.")
         ),
         h(
@@ -369,78 +371,465 @@ function Brand() {
     h(
       "div",
       { className: "section-shell brand-grid" },
-      h("div", { className: "brand-visual reveal" }, h("img", { src: "assets/identidade-visual.jpeg", alt: "Identidade visual da Órion Elite" }), h("div", { className: "brand-caption" }, "Constelação. Alvo. Escudo. Pertencimento.")),
       h(
         "div",
-        null,
+        { className: "brand-copy" },
         h("p", { className: "eyebrow reveal" }, "Marca"),
-        h("h2", { className: "section-title reveal", id: "brand-title" }, "Um sistema simbólico para direção, propósito e legado."),
-        h("div", { className: "symbol-grid" }, brandSymbols.map(([title, text]) => h("article", { className: "symbol-card reveal", key: title }, h("h3", null, title), h("p", null, text))))
-      )
+        h("h2", { className: "section-title reveal", id: "brand-title" }, "Um sistema simbólico para direção, propósito e legado"),
+        h("p", { className: "section-intro reveal" }, "A identidade da Órion nasce da união entre orientação, alvo, velocidade e pertencimento, símbolos que sustentam a forma como o clube se apresenta e cresce.")
+      ),
+      h("div", { className: "symbol-grid" }, brandSymbols.map(([title, text]) => h("article", { className: "symbol-card reveal", key: title }, h("h3", null, title), h("p", null, text))))
     )
   );
 }
 
-function Sued() {
-  return h(
-    "section",
-    { className: "sued section-light", id: "sued", "aria-labelledby": "sued-title" },
-    h(
-      "div",
-      { className: "section-shell sued-grid" },
-      h(
-        "div",
-        null,
-        h("p", { className: "eyebrow reveal" }, "Presidente e atleta paralímpico"),
-        h("h2", { className: "section-title reveal", id: "sued-title" }, "Sued Emmanuel Espínola representa a origem competitiva da Órion."),
-        h("p", { className: "large-copy reveal" }, "Conheceu o tiro com arco em 2023 e se tornou o primeiro atleta paralímpico de tiro com arco da Paraíba com formação de Instrutor Nível 1 e Nível 2."),
-        h("div", { className: "sued-proof reveal" }, h("span", null, "Barebow"), h("span", null, "Recurvo Paralímpico"), h("span", null, "CPB"), h("span", null, "UFPB"))
-      ),
-      h(
-        "div",
-        { className: "timeline" },
-        suedTimeline.map((year) => h("article", { className: "timeline-item reveal", key: year.year }, h("strong", null, year.year), h("ul", null, year.facts.map((fact) => h("li", { key: fact }, fact))))),
-        h("article", { className: "timeline-item highlight reveal" }, h("strong", null, "Formação"), h("p", null, "Terceiro lugar na Copa Norte-Nordeste em Recurvo Paralímpico, duas clínicas de alto rendimento do Comitê Paralímpico Brasileiro e participação em projeto de alto rendimento na Universidade Federal da Paraíba."))
-      )
-    )
-  );
-}
 
 function Team() {
+  const [activeAthlete, setActiveAthlete] = useState(null);
+  const [isReturningToLoop, setIsReturningToLoop] = useState(false);
+  const closeTimerRef = useRef(null);
+  const selectedAthlete = teamMembers.find((athlete) => athlete.id === activeAthlete);
+  const sideAthletes = selectedAthlete ? teamMembers.filter((athlete) => athlete.id !== selectedAthlete.id) : [];
+  const marqueeItems = [...teamMembers, ...teamMembers, ...teamMembers, ...teamMembers];
+
+  useEffect(() => () => window.clearTimeout(closeTimerRef.current), []);
+
+  const focusAthlete = (athleteId) => {
+    window.clearTimeout(closeTimerRef.current);
+    setIsReturningToLoop(false);
+    setActiveAthlete(athleteId);
+  };
+
+  const returnToLoop = () => {
+    if (!activeAthlete || isReturningToLoop) return;
+    setIsReturningToLoop(true);
+    window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = window.setTimeout(() => {
+      setActiveAthlete(null);
+      setIsReturningToLoop(false);
+    }, 500);
+  };
+
+  const renderAthleteCard = (athlete, options = {}) =>
+    h(
+      "button",
+      {
+        className: cx("team-card transition-all duration-500 ease-in-out", options.className, options.active && "is-active"),
+        type: "button",
+        key: options.key || athlete.id,
+        onClick: () => (options.active ? returnToLoop() : focusAthlete(athlete.id)),
+        "aria-pressed": Boolean(options.active),
+        "aria-label": options.active ? `Fechar detalhes de ${athlete.nome}` : `Selecionar ${athlete.nome}`,
+      },
+      h("span", { className: "team-photo" }, h("img", { src: athlete.foto, alt: athlete.alt })),
+      h(
+        "span",
+        { className: "team-card-copy" },
+        h("strong", null, athlete.nome),
+        h("small", null, athlete.role)
+      )
+    );
+
+  return h(
+    "section",
+    { className: "team section-light", id: "equipe", "aria-labelledby": "team-title", onClick: () => activeAthlete && returnToLoop() },
+    h(
+      "div",
+      { className: "section-shell" },
+      h(
+        "div",
+        { className: "section-heading" },
+        h("p", { className: "eyebrow reveal" }, "Equipe e comunidade"),
+        h("h2", { className: "section-title reveal", id: "team-title" }, "Pessoas que sustentam a direção técnica e institucional da Órion"),
+        h("p", { className: "section-intro reveal" }, "Selecione um atleta para pausar o movimento e ver os detalhes de quem constrói a equipe.")
+      ),
+      !selectedAthlete &&
+        h(
+          "p",
+          { className: "team-hint reveal", "aria-live": "polite" },
+          "Selecione um atleta para ver detalhes"
+        ),
+      selectedAthlete
+        ? h(
+            "div",
+            { className: cx("athlete-focus-stage reveal is-visible transition-all duration-500 ease-in-out", isReturningToLoop && "is-returning"), onClick: (event) => event.stopPropagation() },
+            renderAthleteCard(sideAthletes[0], { className: "team-card-side is-left", key: `${sideAthletes[0].id}-side-left` }),
+            h(
+              "div",
+              { className: "athlete-focus-center transition-all duration-500 ease-in-out" },
+              renderAthleteCard(selectedAthlete, { active: true, className: "team-card-main", key: `${selectedAthlete.id}-main` }),
+              h(
+                "aside",
+                { className: "athlete-detail-panel athlete-side-panel transition-all duration-500 ease-in-out", "aria-label": `Informações de ${selectedAthlete.nome}` },
+                h(
+                  "div",
+                  { className: "athlete-panel-head" },
+                  h("p", { className: "eyebrow" }, "Painel lateral"),
+                  h("button", { type: "button", className: "team-detail-close", onClick: returnToLoop, "aria-label": "Voltar ao carrossel em loop" }, "× Voltar")
+                ),
+                h("span", { className: "athlete-panel-kicker" }, selectedAthlete.details.modalidade),
+                h("h3", null, selectedAthlete.nome),
+                h("p", null, selectedAthlete.biography),
+                h(
+                  "dl",
+                  { className: "athlete-detail-list" },
+                  h("div", null, h("dt", null, "Função"), h("dd", null, selectedAthlete.details.funcao)),
+                  h("div", null, h("dt", null, "Foco"), h("dd", null, selectedAthlete.details.foco)),
+                  h("div", null, h("dt", null, "Resumo"), h("dd", null, selectedAthlete.description))
+                )
+              )
+            ),
+            renderAthleteCard(sideAthletes[1], { className: "team-card-side is-right", key: `${sideAthletes[1].id}-side-right` })
+          )
+        : h(
+            "div",
+            {
+              className: "team-carousel reveal",
+              onClick: (event) => event.stopPropagation(),
+            },
+            h(
+              "div",
+              { className: "team-track", "aria-label": "Carrossel infinito de atletas" },
+              marqueeItems.map((athlete, index) => renderAthleteCard(athlete, { key: `${athlete.id}-${index}` }))
+            )
+          ),
+      h(
+        "div",
+        { className: "org-grid team-mentions", "aria-label": "Funções e pessoas sem foto" },
+        organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
+      )
+    )
+  );
+}
+
+
+function TeamCarouselInteractive() {
+  const [activeAthlete, setActiveAthlete] = useState(null);
+  const selectedAthlete = teamMembers.find((athlete) => athlete.id === activeAthlete);
+  const marqueeItems = [...teamMembers, ...teamMembers];
+
+  const renderAthleteCard = (athlete, index) => {
+    const isSelected = selectedAthlete?.id === athlete.id;
+    const hasSelection = Boolean(selectedAthlete);
+
+    return h(
+      "button",
+      {
+        className: cx(
+          "team-card transition-all duration-500 ease-in-out",
+          isSelected && "is-active",
+          hasSelection && !isSelected && "is-dimmed"
+        ),
+        type: "button",
+        key: `${athlete.id}-${index}`,
+        onClick: () => setActiveAthlete(athlete.id),
+        "aria-pressed": isSelected,
+        "aria-label": `Selecionar ${athlete.nome}`,
+      },
+      h("span", { className: "team-photo" }, h("img", { src: athlete.foto, alt: athlete.alt, loading: "lazy" })),
+      h(
+        "span",
+        { className: "team-card-copy" },
+        h("strong", null, athlete.nome),
+        h("small", null, athlete.role)
+      )
+    );
+  };
+
   return h(
     "section",
     { className: "team section-light", id: "equipe", "aria-labelledby": "team-title" },
     h(
       "div",
       { className: "section-shell" },
-      h("div", { className: "section-heading" }, h("p", { className: "eyebrow reveal" }, "Equipe técnica"), h("h2", { className: "section-title reveal", id: "team-title" }, "A técnica é parte da identidade. Não um detalhe operacional.")),
       h(
-        "article",
-        { className: "coach-feature reveal" },
-        h("div", { className: "coach-photo" }, h("img", { src: "assets/daniel-gomide.jpeg", alt: "Daniel Simões Gomide, diretor técnico da Órion Elite" })),
+        "div",
+        { className: cx("section-heading", selectedAthlete && "has-athlete-panel") },
+        h("p", { className: "eyebrow reveal" }, "Equipe e comunidade"),
+        h("h2", { className: "section-title reveal", id: "team-title" }, "Pessoas que sustentam a direÃ§Ã£o tÃ©cnica e institucional da Ã“rion"),
+        h("p", { className: "section-intro reveal" }, "Selecione um atleta para pausar o movimento e ver os detalhes de quem constrÃ³i a equipe.")
+      ),
+      h(
+        "p",
+        { className: cx("team-hint reveal", selectedAthlete && "is-muted"), "aria-live": "polite" },
+        selectedAthlete ? "Carrossel pausado. Feche o painel para retomar." : "Selecione um atleta para ver detalhes"
+      ),
+      h(
+        "div",
+        { className: cx("athlete-carousel-stage reveal", selectedAthlete && "has-selection") },
         h(
           "div",
-          { className: "coach-content" },
-          h("p", { className: "coach-role" }, "Diretor técnico / Atleta / Educador esportivo"),
-          h("h3", null, "Daniel Simões Gomide"),
-          h("p", null, "Bacharel em Educação Física, atleta e técnico de tiro com arco com atuação relevante no desenvolvimento da modalidade na Paraíba. Como atleta, é campeão paraibano outdoor 2025 na categoria Recurvo Masculino Adulto."),
-          h("div", { className: "achievement-grid", "aria-label": "Destaques da trajetória de Daniel Gomide" }, danielCredentials.map((item) => h("span", { key: item }, item)))
+          { className: cx("team-carousel scroll-container", selectedAthlete && "is-paused") },
+          h(
+            "div",
+            {
+              className: "team-track infinite-scroll",
+              "aria-label": "Carrossel infinito de atletas",
+              style: { animationPlayState: selectedAthlete ? "paused" : "running" },
+            },
+            marqueeItems.map(renderAthleteCard)
+          )
+        ),
+        h(
+          "aside",
+          {
+            className: cx("athlete-detail-panel athlete-side-panel transition-all duration-500 ease-in-out", selectedAthlete && "is-open"),
+            "aria-hidden": selectedAthlete ? "false" : "true",
+            "aria-label": selectedAthlete ? `InformaÃ§Ãµes de ${selectedAthlete.nome}` : "InformaÃ§Ãµes do atleta selecionado",
+          },
+          selectedAthlete &&
+            h(
+              React.Fragment,
+              null,
+              h(
+                "div",
+                { className: "athlete-panel-head" },
+                h("p", { className: "eyebrow" }, "Painel lateral"),
+                h("button", { type: "button", className: "team-detail-close", onClick: () => setActiveAthlete(null), "aria-label": "Fechar detalhes do atleta" }, "Ã—")
+              ),
+              h("img", { className: "athlete-panel-photo", src: selectedAthlete.foto, alt: selectedAthlete.alt }),
+              h("span", { className: "athlete-panel-kicker" }, selectedAthlete.details.modalidade),
+              h("h3", null, selectedAthlete.nome),
+              h("p", null, selectedAthlete.biography),
+              h(
+                "dl",
+                { className: "athlete-detail-list" },
+                h("div", null, h("dt", null, "FunÃ§Ã£o"), h("dd", null, selectedAthlete.details.funcao)),
+                h("div", null, h("dt", null, "Foco"), h("dd", null, selectedAthlete.details.foco)),
+                h("div", null, h("dt", null, "Resumo"), h("dd", null, selectedAthlete.description))
+              )
+            )
         )
       ),
-      h("div", { className: "org-grid" }, organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name))))
+      h(
+        "div",
+        { className: "org-grid team-mentions", "aria-label": "FunÃ§Ãµes e pessoas sem foto" },
+        organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
+      )
     )
   );
 }
 
-function Athletes() {
+const athleteProfiles = [
+  {
+    id: "sued",
+    name: "Sued Emmanuel Espinola",
+    shortName: "Sued",
+    role: "Atleta paralímpico / Presidente",
+    image: "assets/sued.jpeg",
+    alt: "Sued Emmanuel Espinola, atleta paralimpico e presidente da Orion Elite",
+    headline: "Primeiro atleta paralímpico de tiro com arco da Paraíba com formação de instrutor nível 1 e 2.",
+    summary:
+      "Conheceu o tiro com arco em 2023 e rapidamente se tornou uma das bases competitivas e institucionais da Órion. Foi campeão brasileiro Barebow em 2024, campeão paraibano indoor e outdoor em 2025 e conquistou resultados nacionais que o levaram à seletiva da Seleção Brasileira Paralímpica.",
+    facts: ["Campeão brasileiro Barebow 2024", "Campeão paraibano indoor e outdoor", "Integrante de projeto de alto rendimento na UFPB"],
+  },
+  {
+    id: "daniel",
+    name: "Daniel Simoes Gomide",
+    shortName: "Daniel",
+    role: "Diretor técnico",
+    image: "assets/daniel-gomide.jpeg",
+    alt: "Daniel Simoes Gomide, diretor tecnico da Orion Elite",
+    headline: "Educador físico, instrutor nível 2, juiz estadual e técnico de atletas de alto rendimento.",
+    summary:
+      "Daniel conecta formação técnica, experiência como atleta e gestão esportiva. É campeão paraibano outdoor 2025 no recurvo masculino adulto, técnico do Bolsa Esporte Paraíba e atuou diretamente na preparação de Sued Emmanuel em conquistas estaduais e nacionais.",
+    facts: ["Bacharel em Educação Física", "Instrutor nível 2 Brasil Arco / CBTARCO", "Técnico premiado no Esporte Paraibano 2024"],
+  },
+  {
+    id: "tiago",
+    name: "Thiago Silva",
+    shortName: "Thiago",
+    role: "Atleta e treinador de arco composto",
+    image: "assets/thiago.jpeg",
+    alt: "Thiago Silva, atleta e treinador de arco composto da Orion Elite",
+    headline: "Atleta multicampeão paraibano e formador de talentos no tiro com arco.",
+    summary:
+      "Thiago tem uma trajetória extensa no arco composto, com títulos estaduais indoor e outdoor em diversas temporadas e medalhas em Copas Nordeste e Norte-Nordeste. Como treinador, participou da formação de atletas campeões brasileiros de base e ajudou a desenvolver o esporte na Paraíba.",
+    facts: ["Multicampeão paraibano indoor e outdoor", "Medalhista em Copas Nordeste", "Fundador e ex-presidente da FPBTARCO"],
+  },
+];
+
+const athleteProfilesCompact = [
+  {
+    id: "sued",
+    name: "Sued Emmanuel Espinola",
+    shortName: "Sued",
+    role: "Atleta paralimpico / Presidente",
+    image: "assets/sued.jpeg",
+    alt: "Sued Emmanuel Espinola, atleta paralimpico e presidente da Orion Elite",
+    headline: "Atleta paralimpico, presidente da Orion e instrutor nivel 1 e 2.",
+    summary: "Conheceu o tiro com arco em 2023 e se tornou uma referencia paralimpica da Paraiba. Une alto rendimento, representatividade e lideranca na origem da Orion.",
+    facts: ["Campeao brasileiro Barebow 2024", "Seletiva da Selecao Paralimpica", "Alto rendimento na UFPB"],
+  },
+  {
+    id: "daniel",
+    name: "Daniel Simoes Gomide",
+    shortName: "Daniel",
+    role: "Diretor tecnico",
+    image: "assets/daniel-gomide.jpeg",
+    alt: "Daniel Simoes Gomide, diretor tecnico da Orion Elite",
+    headline: "Educador fisico, instrutor nivel 2 e diretor tecnico da equipe.",
+    summary: "Daniel combina formacao academica, experiencia competitiva e gestao tecnica. Atua na organizacao dos treinos e no desenvolvimento esportivo da Orion.",
+    facts: ["Bacharel em Educacao Fisica", "Instrutor Brasil Arco / CBTARCO", "Tecnico premiado em 2024"],
+  },
+  {
+    id: "tiago",
+    name: "Thiago Silva",
+    shortName: "Thiago",
+    role: "Atleta e treinador de arco composto",
+    image: "assets/thiago.jpeg",
+    alt: "Thiago Silva, atleta e treinador de arco composto da Orion Elite",
+    headline: "Atleta multicampeao paraibano e formador de talentos.",
+    summary: "Thiago representa experiencia no arco composto. Soma titulos estaduais, medalhas regionais e atuacao direta na formacao de atletas na Paraiba.",
+    facts: ["Titulos indoor e outdoor", "Medalhas em Copas Nordeste", "Ex-presidente da FPBTARCO"],
+  },
+];
+
+function TeamCommunityRefined() {
+  const [activeAthlete, setActiveAthlete] = useState(null);
+  const selectedAthlete = athleteProfilesCompact.find((athlete) => athlete.id === activeAthlete);
+  const marqueeItems = [...athleteProfilesCompact, ...athleteProfilesCompact];
+
+  const closeDetails = () => setActiveAthlete(null);
+
+  const renderAthleteCard = (athlete, index) =>
+    h(
+      "button",
+      {
+        className: cx("team-card refined-athlete-card", selectedAthlete?.id === athlete.id && "is-active", selectedAthlete && selectedAthlete.id !== athlete.id && "is-dimmed"),
+        type: "button",
+        key: `${athlete.id}-${index}`,
+        onClick: (event) => {
+          event.stopPropagation();
+          setActiveAthlete(athlete.id);
+        },
+        "aria-pressed": selectedAthlete?.id === athlete.id,
+        "aria-label": `Ver informações de ${athlete.name}`,
+      },
+      h("span", { className: "team-photo" }, h("img", { src: athlete.image, alt: athlete.alt, loading: "lazy" })),
+      h("span", { className: "team-card-copy" }, h("strong", null, athlete.shortName), h("small", null, athlete.role))
+    );
+
   return h(
     "section",
-    { className: "athletes section-dark", id: "atletas", "aria-labelledby": "athletes-title" },
+    { className: cx("team section-light team-refined", selectedAthlete && "is-detail-open"), id: "equipe", "aria-labelledby": "team-title", onClick: selectedAthlete ? closeDetails : undefined },
     h(
       "div",
       { className: "section-shell" },
-      h("div", { className: "section-heading" }, h("p", { className: "eyebrow reveal" }, "Atletas filiados ativos"), h("h2", { className: "section-title reveal", id: "athletes-title" }, "Uma base de alto rendimento preparada para crescer.")),
-      h("div", { className: "athlete-grid" }, athletes.map(([name, role], index) => h("article", { className: "athlete-card reveal", key: name }, h("span", null, String(index + 1).padStart(2, "0")), h("h3", null, name), h("p", null, role))))
+      h(
+        "div",
+        { className: "section-heading" },
+        h("p", { className: "eyebrow reveal" }, "Equipe e comunidade"),
+        h("h2", { className: "section-title reveal", id: "team-title" }, "Pessoas que sustentam a direção técnica e institucional da Órion"),
+        h("p", { className: "section-intro reveal" }, "O carrossel apresenta atletas e lideranças do clube. Clique em uma foto para pausar o loop e ver um resumo da trajetória.")
+      )
+    ),
+    h(
+      "div",
+      { className: cx("athlete-full-bleed-stage reveal", selectedAthlete && "has-selection"), onClick: selectedAthlete ? closeDetails : undefined },
+      h(
+        "div",
+        { className: cx("team-carousel scroll-container", selectedAthlete && "is-paused") },
+        h(
+          "div",
+          {
+            className: "team-track infinite-scroll",
+            "aria-label": "Carrossel infinito de atletas",
+            style: { animationPlayState: selectedAthlete ? "paused" : "running" },
+          },
+          marqueeItems.map(renderAthleteCard)
+        )
+      ),
+      selectedAthlete &&
+        h(
+          "div",
+          { className: "athlete-detail-overlay", role: "dialog", "aria-modal": "true", "aria-label": `Resumo de ${selectedAthlete.name}`, onClick: (event) => event.stopPropagation() },
+          h(
+            "article",
+            { className: "athlete-detail-card" },
+            h("button", { type: "button", className: "athlete-detail-close", onClick: closeDetails, "aria-label": "Fechar resumo e retomar carrossel" }, "×"),
+            h("div", { className: "athlete-detail-media" }, h("img", { src: selectedAthlete.image, alt: selectedAthlete.alt })),
+            h(
+              "div",
+              { className: "athlete-detail-content" },
+              h("p", { className: "eyebrow" }, selectedAthlete.role),
+              h("h3", null, selectedAthlete.name),
+              h("strong", null, selectedAthlete.headline),
+              h("p", null, selectedAthlete.summary),
+              h("ul", null, selectedAthlete.facts.map((fact) => h("li", { key: fact }, fact)))
+            )
+          )
+        )
+    )
+  );
+}
+
+function Supporters() {
+  return h(
+    "section",
+    { className: "supporters section-light", id: "apoiadores", "aria-labelledby": "supporters-title" },
+    h(
+      "div",
+      { className: "section-shell" },
+      h(
+        "div",
+        { className: "section-heading narrow" },
+        h("p", { className: "eyebrow reveal" }, "Apoiadores"),
+        h("h2", { className: "section-title reveal", id: "supporters-title" }, "Empresas que acreditam no crescimento da Órion"),
+        h("p", { className: "section-intro reveal" }, "Apoiadores ajudam a transformar estrutura, treinamento e oportunidade em evolução real para a modalidade.")
+      ),
+      h(
+        "div",
+        { className: "supporter-grid" },
+        supporterCards.map((card, index) =>
+          h(
+            "article",
+            { className: cx("supporter-card reveal", card.type === "reserved" && "is-reserved"), key: `${card.type}-${index}` },
+            card.type === "logo"
+              ? h(React.Fragment, null, h("img", { src: card.image, alt: card.name }), h("span", null, card.name))
+              : h("p", null, card.text)
+          )
+        )
+      )
+    )
+  );
+}
+
+function SupportersMarquee() {
+  const sponsorSet = [
+    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Empresas que confiam na Orion", helper: "Apoiadores oficiais" },
+    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Sua marca pode ser a proxima", helper: "Apoie o esporte" },
+    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Empresas que acreditam na Orion", helper: "Crescimento da modalidade" },
+  ];
+  const sponsorLoop = [...sponsorSet, ...sponsorSet];
+
+  return h(
+    "section",
+    { className: "sponsor-marquee-section", id: "apoiadores", "aria-label": "Apoiadores da Orion Elite" },
+    h(
+      "div",
+      { className: "sponsor-marquee" },
+      h(
+        "div",
+        { className: "sponsor-track", "aria-label": "Carrossel infinito de patrocinadores" },
+        sponsorLoop.map((item, index) =>
+          item.type === "logo"
+            ? h(
+                "article",
+                { className: "sponsor-logo-card", key: `${item.type}-${index}` },
+                h("img", { src: item.image, alt: item.name, loading: "lazy" })
+              )
+            : h(
+                "article",
+                { className: "sponsor-cta-card", key: `${item.type}-${index}` },
+                h("strong", null, item.text),
+                h("span", null, item.helper)
+              )
+        )
+      )
     )
   );
 }
@@ -451,19 +840,15 @@ function Partnerships() {
     { className: "partners section-light", id: "parcerias", "aria-labelledby": "partners-title" },
     h(
       "div",
-      { className: "section-shell partners-grid" },
-      h("div", null, h("p", { className: "eyebrow reveal" }, "Parcerias"), h("h2", { className: "section-title reveal", id: "partners-title" }, "Apoiar a Órion é apoiar o tiro com arco na Paraíba.")),
-      h(
-        "div",
-        { className: "partner-copy reveal" },
-        h("p", null, "O clube busca parceiros estratégicos que compreendam o valor do esporte como ferramenta de transformação, desenvolvimento, visibilidade e construção de legado."),
-        h("p", null, "Estamos abertos a empresas privadas, instituições públicas, projetos governamentais, marcas parceiras, prefeituras e atletas que desejem caminhar ao lado de uma modalidade em crescimento."),
-        h("div", { className: "partner-paths", "aria-label": "Formas de parceria" }, partnerPaths.map((path) => h("span", { key: path }, path))),
-        h("div", { className: "partner-actions" }, h("a", { className: "button button-dark", href: "mailto:arqueariaorion@gmail.com?subject=Quero apoiar a Órion Elite" }, "Quero apoiar"), h("a", { className: "button button-outline", href: "mailto:arqueariaorion@gmail.com?subject=Quero praticar tiro com arco" }, "Quero praticar"))
-      )
+      { className: "section-shell partners-simple" },
+      h("p", { className: "eyebrow reveal" }, "Parcerias"),
+      h("h2", { className: "section-title reveal", id: "partners-title" }, "Sua marca pode apoiar o futuro do tiro com arco na Paraíba"),
+      h("p", { className: "section-intro reveal" }, "A Órion Elite busca parceiros que queiram caminhar com um clube em formação, com direção institucional, desenvolvimento técnico e compromisso esportivo."),
+      h("div", { className: "partner-actions reveal" }, h("a", { className: "button button-dark", href: contactLinks.support }, "Quero apoiar a Orion"))
     )
   );
 }
+
 
 function Contact() {
   return h(
@@ -472,18 +857,18 @@ function Contact() {
     h(
       "div",
       { className: "section-shell contact-grid" },
-      h("div", null, h("p", { className: "eyebrow reveal" }, "Contato oficial"), h("h2", { className: "section-title reveal", id: "contact-title" }, "Vamos construir a próxima referência do tiro com arco paraibano.")),
+      h("div", null, h("p", { className: "eyebrow reveal" }, "Contato oficial"), h("h2", { className: "section-title reveal", id: "contact-title" }, "Vamos construir a próxima referência do tiro com arco paraibano")),
       h(
         "div",
         { className: "contact-panel reveal" },
-        h("a", { href: "mailto:arqueariaorion@gmail.com?subject=Quero praticar tiro com arco" }, "Quero praticar tiro com arco"),
-        h("a", { href: "mailto:arqueariaorion@gmail.com?subject=Quero apoiar a Órion Elite" }, "Quero apoiar a Órion Elite"),
-        h("a", { href: "mailto:arqueariaorion@gmail.com?subject=Quero falar com o clube" }, "Quero falar com o clube"),
+        h("a", { href: contactLinks.practice }, "Quero praticar tiro com arco"),
+        h("a", { href: contactLinks.support }, "Quero apoiar a Orion"),
+        h("a", { href: contactLinks.talk }, "Quero falar com o clube"),
         h(
           "dl",
           { className: "contact-list" },
-          h("div", null, h("dt", null, "E-mail"), h("dd", null, h("a", { href: "mailto:arqueariaorion@gmail.com" }, "arqueariaorion@gmail.com"))),
-          h("div", null, h("dt", null, "Instagram"), h("dd", null, h("a", { href: "https://instagram.com/oriontirocomarco", target: "_blank", rel: "noreferrer" }, "@oriontirocomarco"))),
+          h("div", null, h("dt", null, "E-mail"), h("dd", null, h("a", { href: contactLinks.email }, "arqueariaorion@gmail.com"))),
+          h("div", null, h("dt", null, "Instagram"), h("dd", null, h("a", { href: contactLinks.instagram, target: "_blank", rel: "noreferrer" }, "@oriontirocomarco"))),
           h("div", null, h("dt", null, "CNPJ"), h("dd", null, "64.505.635/0001-23")),
           h("div", null, h("dt", null, "Nome jurídico"), h("dd", null, "Clube Órion Elite de Tiro com Arco"))
         )
@@ -491,6 +876,7 @@ function Contact() {
     )
   );
 }
+
 
 function Footer() {
   return h(
@@ -508,13 +894,7 @@ function Footer() {
 
 function useMotion() {
   useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealNodes = Array.from(document.querySelectorAll(".reveal, .line-reveal, .split-text"));
-
-    if (reduceMotion) {
-      revealNodes.forEach((node) => node.classList.add("is-visible"));
-      return undefined;
-    }
 
     let lenis;
     let rafId = 0;
@@ -558,12 +938,6 @@ function useMotion() {
         scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
       });
 
-      window.gsap.to(".target-system", {
-        rotate: 18,
-        scale: 0.86,
-        ease: "none",
-        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
-      });
 
       window.gsap.to(".gold-line", {
         scaleY: 1,
@@ -571,44 +945,6 @@ function useMotion() {
         ease: "none",
         scrollTrigger: { trigger: ".origin", start: "top 65%", end: "bottom 45%", scrub: true },
       });
-
-      const missionCards = Array.from(document.querySelectorAll(".mission-card"));
-      const setMissionActive = (activeIndex) => {
-        missionCards.forEach((card, index) => card.classList.toggle("is-active", index === activeIndex));
-      };
-
-      if (missionCards.length) {
-        if (window.innerWidth <= 980) {
-          missionCards.forEach((card) => card.classList.add("is-active"));
-        } else {
-          setMissionActive(0);
-
-          window.ScrollTrigger.create({
-            trigger: ".mission",
-            start: "top top",
-            end: "+=170%",
-            pin: true,
-            scrub: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const activeIndex = Math.min(missionCards.length - 1, Math.floor(self.progress * missionCards.length));
-              setMissionActive(activeIndex);
-            },
-          });
-
-          window.gsap.fromTo(
-            ".mission-riser",
-            { scaleY: 0 },
-            {
-              scaleY: 1,
-              transformOrigin: "bottom",
-              ease: "none",
-              scrollTrigger: { trigger: ".mission", start: "top 82%", end: "top top", scrub: true },
-            }
-          );
-        }
-      }
 
       window.ScrollTrigger.refresh();
     } else if ("IntersectionObserver" in window) {
@@ -643,14 +979,13 @@ function App() {
   const sections = useMemo(
     () => [
       h(Hero, { key: "hero" }),
+      h(SupportersMarquee, { key: "supporters-marquee" }),
       h(Manifesto, { key: "manifesto" }),
       h(Origin, { key: "origin" }),
       h(Essence, { key: "essence" }),
       h(Mission, { key: "mission" }),
       h(Brand, { key: "brand" }),
-      h(Sued, { key: "sued" }),
-      h(Team, { key: "team" }),
-      h(Athletes, { key: "athletes" }),
+      h(TeamCommunityRefined, { key: "team" }),
       h(Partnerships, { key: "partners" }),
       h(Contact, { key: "contact" }),
     ],
