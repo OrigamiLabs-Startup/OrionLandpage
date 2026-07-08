@@ -68,6 +68,12 @@ const contactLinks = {
   instagram: "https://instagram.com/oriontirocomarco",
 };
 
+const whatsappLinks = {
+  practice: "https://wa.me/5583988963200",
+  support: "https://wa.me/5583988227194",
+  talk: "https://wa.me/5583988227194",
+};
+
 const teamMembers = [
   {
     id: "sued",
@@ -183,7 +189,7 @@ function Header() {
       "nav",
       { className: cx("site-nav", open && "is-open"), "aria-label": "Navegação principal" },
       navItems.map(([label, href]) => h("a", { href, key: href, onClick: () => setOpen(false) }, label)),
-      h("a", { className: "nav-cta", href: "#contato", onClick: () => setOpen(false) }, "Fale com o clube")
+      h("a", { className: "nav-cta", href: whatsappLinks.talk, target: "_blank", rel: "noreferrer", onClick: () => setOpen(false) }, "Fale com o clube")
     )
   );
 }
@@ -247,7 +253,7 @@ function Hero() {
           "div",
           { className: "hero-actions reveal" },
           h("a", { className: "button button-primary", href: "#historia" }, "Conheça a história"),
-          h("a", { className: "button button-secondary", href: "#contato" }, "Quero praticar")
+          h("a", { className: "button button-secondary", href: whatsappLinks.practice, target: "_blank", rel: "noreferrer" }, "Quero praticar")
         )
       )
     )
@@ -654,23 +660,23 @@ const athleteProfilesCompact = [
     id: "sued",
     name: "Sued Emmanuel Espinola",
     shortName: "Sued",
-    role: "Atleta paralimpico / Presidente",
+    role: "Atleta paralímpico / Presidente",
     image: "assets/sued.jpeg",
-    alt: "Sued Emmanuel Espinola, atleta paralimpico e presidente da Orion Elite",
-    headline: "Atleta paralimpico, presidente da Orion e instrutor nivel 1 e 2.",
-    summary: "Conheceu o tiro com arco em 2023 e se tornou uma referencia paralimpica da Paraiba. Une alto rendimento, representatividade e lideranca na origem da Orion.",
-    facts: ["Campeao brasileiro Barebow 2024", "Seletiva da Selecao Paralimpica", "Alto rendimento na UFPB"],
+    alt: "Sued Emmanuel Espinola, atleta paralímpico e presidente da Órion Elite",
+    headline: "Atleta paralímpico, presidente da Órion e instrutor nível 1 e 2.",
+    summary: "Conheceu o tiro com arco em 2023 e se tornou uma referência paralímpica da Paraíba. Une alto rendimento, representatividade e liderança na origem da Órion.",
+    facts: ["Campeão brasileiro Barebow 2024", "Seletiva da Seleção Paralímpica", "Alto rendimento na UFPB"],
   },
   {
     id: "daniel",
     name: "Daniel Simoes Gomide",
     shortName: "Daniel",
-    role: "Diretor tecnico",
+    role: "Diretor técnico",
     image: "assets/daniel-gomide.jpeg",
-    alt: "Daniel Simoes Gomide, diretor tecnico da Orion Elite",
-    headline: "Educador fisico, instrutor nivel 2 e diretor tecnico da equipe.",
-    summary: "Daniel combina formacao academica, experiencia competitiva e gestao tecnica. Atua na organizacao dos treinos e no desenvolvimento esportivo da Orion.",
-    facts: ["Bacharel em Educacao Fisica", "Instrutor Brasil Arco / CBTARCO", "Tecnico premiado em 2024"],
+    alt: "Daniel Simões Gomide, diretor técnico da Órion Elite",
+    headline: "Educador físico, instrutor nível 2 e diretor técnico da equipe.",
+    summary: "Daniel combina formação acadêmica, experiência competitiva e gestão técnica. Atua na organização dos treinos e no desenvolvimento esportivo da Órion.",
+    facts: ["Bacharel em Educação Física", "Instrutor Brasil Arco / CBTARCO", "Técnico premiado em 2024"],
   },
   {
     id: "tiago",
@@ -678,10 +684,10 @@ const athleteProfilesCompact = [
     shortName: "Thiago",
     role: "Atleta e treinador de arco composto",
     image: "assets/thiago.jpeg",
-    alt: "Thiago Silva, atleta e treinador de arco composto da Orion Elite",
-    headline: "Atleta multicampeao paraibano e formador de talentos.",
-    summary: "Thiago representa experiencia no arco composto. Soma titulos estaduais, medalhas regionais e atuacao direta na formacao de atletas na Paraiba.",
-    facts: ["Titulos indoor e outdoor", "Medalhas em Copas Nordeste", "Ex-presidente da FPBTARCO"],
+    alt: "Thiago Silva, atleta e treinador de arco composto da Órion Elite",
+    headline: "Atleta multicampeão paraibano e formador de talentos.",
+    summary: "Thiago representa experiência no arco composto. Soma títulos estaduais, medalhas regionais e atuação direta na formação de atletas na Paraíba.",
+    facts: ["Títulos indoor e outdoor", "Medalhas em Copas Nordeste", "Ex-presidente da FPBTARCO"],
   },
 ];
 
@@ -797,18 +803,18 @@ function Supporters() {
 
 function SupportersMarquee() {
   const sponsorSet = [
-    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Empresas que confiam na Orion", helper: "Apoiadores oficiais" },
-    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Sua marca pode ser a proxima", helper: "Apoie o esporte" },
-    { type: "logo", name: "Resolve Educacao", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Empresas que acreditam na Orion", helper: "Crescimento da modalidade" },
+    { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Empresas que confiam na Órion", helper: "Apoiadores oficiais" },
+    { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Sua marca pode ser a próxima", helper: "Apoie o esporte" },
+    { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
+    { type: "cta", text: "Empresas que acreditam na Órion", helper: "Crescimento da modalidade" },
   ];
   const sponsorLoop = [...sponsorSet, ...sponsorSet];
 
   return h(
     "section",
-    { className: "sponsor-marquee-section", id: "apoiadores", "aria-label": "Apoiadores da Orion Elite" },
+    { className: "sponsor-marquee-section", id: "apoiadores", "aria-label": "Apoiadores da Órion Elite" },
     h(
       "div",
       { className: "sponsor-marquee" },
@@ -844,7 +850,7 @@ function Partnerships() {
       h("p", { className: "eyebrow reveal" }, "Parcerias"),
       h("h2", { className: "section-title reveal", id: "partners-title" }, "Sua marca pode apoiar o futuro do tiro com arco na Paraíba"),
       h("p", { className: "section-intro reveal" }, "A Órion Elite busca parceiros que queiram caminhar com um clube em formação, com direção institucional, desenvolvimento técnico e compromisso esportivo."),
-      h("div", { className: "partner-actions reveal" }, h("a", { className: "button button-dark", href: contactLinks.support }, "Quero apoiar a Orion"))
+      h("div", { className: "partner-actions reveal" }, h("a", { className: "button button-dark", href: whatsappLinks.support, target: "_blank", rel: "noreferrer" }, "Quero apoiar a Órion"))
     )
   );
 }
@@ -861,9 +867,9 @@ function Contact() {
       h(
         "div",
         { className: "contact-panel reveal" },
-        h("a", { href: contactLinks.practice }, "Quero praticar tiro com arco"),
-        h("a", { href: contactLinks.support }, "Quero apoiar a Orion"),
-        h("a", { href: contactLinks.talk }, "Quero falar com o clube"),
+        h("a", { href: whatsappLinks.practice, target: "_blank", rel: "noreferrer" }, "Quero praticar tiro com arco"),
+        h("a", { href: whatsappLinks.support, target: "_blank", rel: "noreferrer" }, "Quero apoiar a Órion"),
+        h("a", { href: whatsappLinks.talk, target: "_blank", rel: "noreferrer" }, "Quero falar com o clube"),
         h(
           "dl",
           { className: "contact-list" },
