@@ -802,6 +802,7 @@ function Supporters() {
 }
 
 function SupportersMarquee() {
+  const resolveUrl = "https://matricula.resolveeducacao.com.br/";
   const sponsorSet = [
     { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
     { type: "cta", text: "Empresas que confiam na Órion", helper: "Apoiadores oficiais" },
@@ -824,8 +825,15 @@ function SupportersMarquee() {
         sponsorLoop.map((item, index) =>
           item.type === "logo"
             ? h(
-                "article",
-                { className: "sponsor-logo-card", key: `${item.type}-${index}` },
+                "a",
+                {
+                  className: "sponsor-logo-card",
+                  href: resolveUrl,
+                  target: "_blank",
+                  rel: "noreferrer",
+                  "aria-label": "Abrir site da Resolve Educação",
+                  key: `${item.type}-${index}`,
+                },
                 h("img", { src: item.image, alt: item.name, loading: "lazy" })
               )
             : h(

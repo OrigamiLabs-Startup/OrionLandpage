@@ -3373,7 +3373,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 }
 
 .sponsor-cta-card {
-  gap: 6px;
+  gap: 2px;
   border: 0;
   background: transparent;
   color: rgba(6, 17, 13, 0.76);
@@ -3390,7 +3390,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
   font-size: clamp(9px, 0.72vw, 11px);
   font-weight: 900;
   letter-spacing: 0.055em;
-  line-height: 1.2;
+  line-height: 1.08;
   text-transform: uppercase;
 }
 
@@ -3399,6 +3399,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
   font-size: clamp(8px, 0.62vw, 9px);
   font-weight: 900;
   letter-spacing: 0.105em;
+  line-height: 1.05;
   text-transform: uppercase;
 }
 
