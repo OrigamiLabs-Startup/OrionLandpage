@@ -2909,9 +2909,17 @@ a {
 .infinite-scroll {
   display: flex;
   width: max-content;
-  gap: clamp(18px, 2.4vw, 30px);
+  gap: 0;
   animation: scroll-left 25s linear infinite;
   will-change: transform;
+}
+
+.athlete-loop-block {
+  display: flex;
+  flex: 0 0 max-content;
+  min-width: max-content;
+  gap: clamp(18px, 2.2vw, 30px);
+  padding-right: clamp(18px, 2.2vw, 30px);
 }
 
 .team-carousel.is-paused .infinite-scroll {
@@ -3053,7 +3061,7 @@ a {
 }
 
 html.motion-force .infinite-scroll {
-  animation: scroll-left 25s linear infinite !important;
+  animation: scroll-left 14s linear infinite !important;
 }
 
 html.motion-force .team-carousel.is-paused .infinite-scroll {
@@ -3089,8 +3097,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 }
 
 .athlete-full-bleed-stage .infinite-scroll {
-  gap: clamp(18px, 2.2vw, 30px);
-  padding-inline: max(20px, calc((100vw - var(--max)) / 2));
+  padding-inline: 0;
 }
 
 .refined-athlete-card {
@@ -3256,12 +3263,16 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 
 @media (max-width: 620px) {
   .athlete-full-bleed-stage .infinite-scroll {
-    padding-inline: 20px;
+    padding-inline: 0;
   }
 
   .refined-athlete-card {
     flex-basis: min(74vw, 286px);
     width: min(74vw, 286px);
+  }
+
+  html.motion-force .infinite-scroll {
+    animation-duration: 11s !important;
   }
 
   .athlete-detail-overlay {
@@ -3290,12 +3301,33 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 .sponsor-marquee-section {
   position: relative;
   z-index: 2;
-  padding: clamp(18px, 2.4vw, 28px) 0;
+  margin-top: 0;
+  padding: clamp(34px, 5vw, 64px) 0 clamp(24px, 3.5vw, 42px);
   border-block: 1px solid rgba(6, 17, 13, 0.1);
   background:
     radial-gradient(circle at 12% 50%, rgba(176, 138, 60, 0.12), transparent 34%),
     linear-gradient(180deg, var(--ivory) 0%, var(--ivory-2) 100%);
   overflow: hidden;
+}
+
+.sponsor-section-heading {
+  width: min(100% - 40px, var(--max));
+  margin: 0 auto clamp(18px, 2.4vw, 28px);
+  text-align: center;
+}
+
+.sponsor-section-heading .eyebrow {
+  margin-bottom: 10px;
+}
+
+.sponsor-section-heading h2 {
+  margin: 0;
+  color: var(--black-green);
+  font-family: var(--serif);
+  font-size: clamp(30px, 4vw, 56px);
+  font-weight: 600;
+  line-height: 0.98;
+  text-wrap: balance;
 }
 
 .sponsor-marquee {
@@ -3330,9 +3362,16 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 .sponsor-track {
   display: flex;
   width: max-content;
-  gap: clamp(14px, 2vw, 22px);
-  animation: sponsor-scroll 20s linear infinite;
+  gap: 0;
+  animation: sponsor-scroll 13s linear infinite;
   will-change: transform;
+}
+
+.sponsor-loop-block {
+  display: flex;
+  flex: 0 0 max-content;
+  min-width: max-content;
+  gap: clamp(6px, 0.8vw, 12px);
 }
 
 .sponsor-marquee:hover .sponsor-track,
@@ -3343,22 +3382,25 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 .sponsor-logo-card,
 .sponsor-cta-card {
   flex: 0 0 auto;
-  min-width: clamp(210px, 19vw, 284px);
-  min-height: 64px;
+  min-width: clamp(190px, 17vw, 250px);
+  min-height: 104px;
   display: grid;
   place-items: center;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 0;
 }
 
 .sponsor-logo-card {
+  min-width: clamp(280px, 24vw, 360px);
+  padding-inline: 8px;
   border: 0;
   background: transparent;
 }
 
 .sponsor-logo-card img {
-  max-width: 208px;
-  max-height: 64px;
+  width: min(320px, 100%);
+  max-width: 320px;
+  max-height: 108px;
   object-fit: contain;
   opacity: 0.84;
   filter: saturate(1) contrast(1.06);
@@ -3373,7 +3415,11 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 }
 
 .sponsor-cta-card {
-  gap: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
   border: 0;
   background: transparent;
   color: rgba(6, 17, 13, 0.76);
@@ -3387,7 +3433,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 }
 
 .sponsor-cta-card strong {
-  font-size: clamp(9px, 0.72vw, 11px);
+  font-size: clamp(10px, 0.86vw, 13px);
   font-weight: 900;
   letter-spacing: 0.055em;
   line-height: 1.08;
@@ -3396,7 +3442,7 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
 
 .sponsor-cta-card span {
   color: var(--gold);
-  font-size: clamp(8px, 0.62vw, 9px);
+  font-size: clamp(9px, 0.7vw, 11px);
   font-weight: 900;
   letter-spacing: 0.105em;
   line-height: 1.05;
@@ -3410,11 +3456,23 @@ html.motion-force .team-carousel.is-paused .infinite-scroll {
     -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 7%, black 93%, transparent 100%);
   }
 
-  .sponsor-logo-card,
+  .sponsor-logo-card {
+    min-width: 250px;
+    padding-inline: 8px;
+  }
+
   .sponsor-cta-card {
-    min-width: 210px;
-    min-height: 70px;
+    min-width: 190px;
+    min-height: 96px;
     padding-inline: 18px;
+  }
+
+  .sponsor-section-heading {
+    width: min(100% - 28px, var(--max));
+  }
+
+  .sponsor-section-heading h2 {
+    font-size: clamp(29px, 9vw, 42px);
   }
 }
 

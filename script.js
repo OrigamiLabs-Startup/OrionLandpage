@@ -52,13 +52,12 @@ const brandSymbols = [
 
 const organization = [
   ["Presidente", "Sued Emmanuel Espínola"],
-  ["Vice-presidente", "Michele Soares de Farias"],
+  ["Vice-presidente e coordenadora esportiva", "Michele Soares de Farias"],
   ["Diretor técnico", "Daniel Simões Gomide"],
   ["Fundadoras", "Michele Soares de Farias e Sara Cardoso Pimenta Macedo"],
   ["Treinador de arco composto", "Thiago"],
-  ["Coordenadora esportiva", "Michele Soares de Farias"],
+  ["Atleta filiado", "Euclides Ponce Leon Neto"],
 ];
-
 
 const contactLinks = {
   practice: "#", // TODO: substituir pelo link oficial de prática quando definido.
@@ -189,7 +188,7 @@ function Header() {
       "nav",
       { className: cx("site-nav", open && "is-open"), "aria-label": "Navegação principal" },
       navItems.map(([label, href]) => h("a", { href, key: href, onClick: () => setOpen(false) }, label)),
-      h("a", { className: "nav-cta", href: whatsappLinks.talk, target: "_blank", rel: "noreferrer", onClick: () => setOpen(false) }, "Fale com o clube")
+      h("a", { className: "nav-cta", href: whatsappLinks.talk, target: "_blank", rel: "noopener noreferrer", onClick: () => setOpen(false) }, "Fale com o clube")
     )
   );
 }
@@ -253,7 +252,7 @@ function Hero() {
           "div",
           { className: "hero-actions reveal" },
           h("a", { className: "button button-primary", href: "#historia" }, "Conheça a história"),
-          h("a", { className: "button button-secondary", href: whatsappLinks.practice, target: "_blank", rel: "noreferrer" }, "Quero praticar")
+          h("a", { className: "button button-secondary", href: whatsappLinks.practice, target: "_blank", rel: "noopener noreferrer" }, "Quero praticar")
         )
       )
     )
@@ -644,7 +643,7 @@ const athleteProfiles = [
   {
     id: "tiago",
     name: "Thiago Silva",
-    shortName: "Thiago",
+    shortName: "Tiago",
     role: "Atleta e treinador de arco composto",
     image: "assets/thiago.jpeg",
     alt: "Thiago Silva, atleta e treinador de arco composto da Orion Elite",
@@ -681,7 +680,7 @@ const athleteProfilesCompact = [
   {
     id: "tiago",
     name: "Thiago Silva",
-    shortName: "Thiago",
+    shortName: "Tiago",
     role: "Atleta e treinador de arco composto",
     image: "assets/thiago.jpeg",
     alt: "Thiago Silva, atleta e treinador de arco composto da Órion Elite",
@@ -694,9 +693,13 @@ const athleteProfilesCompact = [
 function TeamCommunityRefined() {
   const [activeAthlete, setActiveAthlete] = useState(null);
   const selectedAthlete = athleteProfilesCompact.find((athlete) => athlete.id === activeAthlete);
-  const marqueeItems = [...athleteProfilesCompact, ...athleteProfilesCompact];
-
-  const closeDetails = () => setActiveAthlete(null);
+  const athleteLoop = [...athleteProfilesCompact, ...athleteProfilesCompact, ...athleteProfilesCompact];
+  const renderAthleteBlock = (blockIndex) =>
+    h(
+      "div",
+      { className: "athlete-loop-block", "aria-hidden": blockIndex === 1 ? "true" : undefined },
+      athleteLoop.map((athlete, index) => renderAthleteCard(athlete, `${blockIndex}-${index}`))
+    );
 
   const renderAthleteCard = (athlete, index) =>
     h(
@@ -715,6 +718,8 @@ function TeamCommunityRefined() {
       h("span", { className: "team-photo" }, h("img", { src: athlete.image, alt: athlete.alt, loading: "lazy" })),
       h("span", { className: "team-card-copy" }, h("strong", null, athlete.shortName), h("small", null, athlete.role))
     );
+
+  const closeDetails = () => setActiveAthlete(null);
 
   return h(
     "section",
@@ -743,7 +748,8 @@ function TeamCommunityRefined() {
             "aria-label": "Carrossel infinito de atletas",
             style: { animationPlayState: selectedAthlete ? "paused" : "running" },
           },
-          marqueeItems.map(renderAthleteCard)
+          renderAthleteBlock(0),
+          renderAthleteBlock(1)
         )
       ),
       selectedAthlete &&
@@ -766,6 +772,13 @@ function TeamCommunityRefined() {
             )
           )
         )
+    ),
+    h(
+      "div",
+      { className: "section-shell team-mentions-shell" },
+      h("div", { className: "org-grid team-mentions", "aria-label": "Funções e pessoas da equipe e comunidade" },
+        organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
+      )
     )
   );
 }
@@ -805,43 +818,58 @@ function SupportersMarquee() {
   const resolveUrl = "https://matricula.resolveeducacao.com.br/";
   const sponsorSet = [
     { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Empresas que confiam na Órion", helper: "Apoiadores oficiais" },
-    { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Sua marca pode ser a próxima", helper: "Apoie o esporte" },
-    { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
-    { type: "cta", text: "Empresas que acreditam na Órion", helper: "Crescimento da modalidade" },
+    { type: "cta", text: "Sua marca pode ser a próxima", helper: "Apoia o esporte" },
   ];
-  const sponsorLoop = [...sponsorSet, ...sponsorSet];
+  const sponsorLoop = [...sponsorSet, ...sponsorSet, ...sponsorSet, ...sponsorSet];
+
+  const renderSponsor = (item, blockIndex, itemIndex) =>
+    item.type === "logo"
+      ? h(
+          "a",
+          {
+            className: "sponsor-logo-card",
+            href: resolveUrl,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            "aria-label": "Abrir site da Resolve Educação",
+            key: `sponsor-logo-${blockIndex}-${itemIndex}`,
+          },
+          h("img", { src: item.image, alt: item.name, loading: "lazy" })
+        )
+      : h(
+          "article",
+          { className: "sponsor-cta-card", key: `sponsor-cta-${blockIndex}-${itemIndex}` },
+          h("strong", null, item.text),
+          h("span", null, item.helper)
+        );
+
+  const renderSponsorBlock = (blockIndex) =>
+    h(
+      "div",
+      { className: "sponsor-loop-block", "aria-hidden": blockIndex === 1 ? "true" : undefined },
+      sponsorLoop.map((item, itemIndex) => renderSponsor(item, blockIndex, itemIndex))
+    );
 
   return h(
     "section",
     { className: "sponsor-marquee-section", id: "apoiadores", "aria-label": "Apoiadores da Órion Elite" },
     h(
-      "div",
-      { className: "sponsor-marquee" },
+      React.Fragment,
+      null,
       h(
         "div",
-        { className: "sponsor-track", "aria-label": "Carrossel infinito de patrocinadores" },
-        sponsorLoop.map((item, index) =>
-          item.type === "logo"
-            ? h(
-                "a",
-                {
-                  className: "sponsor-logo-card",
-                  href: resolveUrl,
-                  target: "_blank",
-                  rel: "noreferrer",
-                  "aria-label": "Abrir site da Resolve Educação",
-                  key: `${item.type}-${index}`,
-                },
-                h("img", { src: item.image, alt: item.name, loading: "lazy" })
-              )
-            : h(
-                "article",
-                { className: "sponsor-cta-card", key: `${item.type}-${index}` },
-                h("strong", null, item.text),
-                h("span", null, item.helper)
-              )
+        { className: "sponsor-section-heading" },
+        h("p", { className: "eyebrow" }, "Apoiadores"),
+        h("h2", { id: "supporters-title" }, "Empresas que acreditam na Orion")
+      ),
+      h(
+        "div",
+        { className: "sponsor-marquee" },
+        h(
+          "div",
+          { className: "sponsor-track", "aria-label": "Carrossel infinito de patrocinadores" },
+          renderSponsorBlock(0),
+          renderSponsorBlock(1)
         )
       )
     )
@@ -858,7 +886,7 @@ function Partnerships() {
       h("p", { className: "eyebrow reveal" }, "Parcerias"),
       h("h2", { className: "section-title reveal", id: "partners-title" }, "Sua marca pode apoiar o futuro do tiro com arco na Paraíba"),
       h("p", { className: "section-intro reveal" }, "A Órion Elite busca parceiros que queiram caminhar com um clube em formação, com direção institucional, desenvolvimento técnico e compromisso esportivo."),
-      h("div", { className: "partner-actions reveal" }, h("a", { className: "button button-dark", href: whatsappLinks.support, target: "_blank", rel: "noreferrer" }, "Quero apoiar a Órion"))
+      h("div", { className: "partner-actions reveal" }, h("a", { className: "button button-dark", href: whatsappLinks.support, target: "_blank", rel: "noopener noreferrer" }, "Quero apoiar a Órion"))
     )
   );
 }
@@ -875,14 +903,14 @@ function Contact() {
       h(
         "div",
         { className: "contact-panel reveal" },
-        h("a", { href: whatsappLinks.practice, target: "_blank", rel: "noreferrer" }, "Quero praticar tiro com arco"),
-        h("a", { href: whatsappLinks.support, target: "_blank", rel: "noreferrer" }, "Quero apoiar a Órion"),
-        h("a", { href: whatsappLinks.talk, target: "_blank", rel: "noreferrer" }, "Quero falar com o clube"),
+        h("a", { href: whatsappLinks.practice, target: "_blank", rel: "noopener noreferrer" }, "Quero praticar tiro com arco"),
+        h("a", { href: whatsappLinks.support, target: "_blank", rel: "noopener noreferrer" }, "Quero apoiar a Órion"),
+        h("a", { href: whatsappLinks.talk, target: "_blank", rel: "noopener noreferrer" }, "Quero falar com o clube"),
         h(
           "dl",
           { className: "contact-list" },
           h("div", null, h("dt", null, "E-mail"), h("dd", null, h("a", { href: contactLinks.email }, "arqueariaorion@gmail.com"))),
-          h("div", null, h("dt", null, "Instagram"), h("dd", null, h("a", { href: contactLinks.instagram, target: "_blank", rel: "noreferrer" }, "@oriontirocomarco"))),
+          h("div", null, h("dt", null, "Instagram"), h("dd", null, h("a", { href: contactLinks.instagram, target: "_blank", rel: "noopener noreferrer" }, "@oriontirocomarco"))),
           h("div", null, h("dt", null, "CNPJ"), h("dd", null, "64.505.635/0001-23")),
           h("div", null, h("dt", null, "Nome jurídico"), h("dd", null, "Clube Órion Elite de Tiro com Arco"))
         )
