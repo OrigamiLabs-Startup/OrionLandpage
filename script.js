@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 const h = React.createElement;
@@ -60,9 +60,6 @@ const organization = [
 ];
 
 const contactLinks = {
-  practice: "#", // TODO: substituir pelo link oficial de prática quando definido.
-  support: "#", // TODO: substituir pelo link oficial de apoio/patrocínio quando definido.
-  talk: "#", // TODO: substituir pelo link oficial de atendimento quando definido.
   email: "mailto:arqueariaorion@gmail.com",
   instagram: "https://instagram.com/oriontirocomarco",
 };
@@ -72,62 +69,6 @@ const whatsappLinks = {
   support: "https://wa.me/5583988227194",
   talk: "https://wa.me/5583988227194",
 };
-
-const teamMembers = [
-  {
-    id: "sued",
-    nome: "Sued",
-    name: "Sued",
-    role: "Presidente",
-    foto: "assets/sued.jpeg",
-    image: "assets/sued.jpeg",
-    alt: "Sued, presidente da Órion Elite",
-    details: {
-      funcao: "Presidente",
-      modalidade: "Liderança institucional",
-      foco: "Direção, representatividade e fortalecimento do clube",
-    },
-    description: "Presidente da Órion Elite e uma das lideranças responsáveis pela direção institucional do clube.",
-    biography: "Atua na construção institucional da Órion, conectando a história do clube com a organização necessária para sustentar atletas, treinos e novas oportunidades para o tiro com arco na Paraíba.",
-  },
-  {
-    id: "daniel",
-    nome: "Daniel",
-    name: "Daniel",
-    role: "Diretor técnico",
-    foto: "assets/daniel-gomide.jpeg",
-    image: "assets/daniel-gomide.jpeg",
-    alt: "Daniel, diretor técnico da Órion Elite",
-    details: {
-      funcao: "Diretor técnico",
-      modalidade: "Organização técnica",
-      foco: "Treinamentos, método e estrutura esportiva",
-    },
-    description: "Diretor técnico, responsável por apoiar a organização técnica, treinamentos e estrutura esportiva da Órion.",
-    biography: "Contribui para transformar experiência esportiva em método de treino, apoiando a rotina técnica e a estrutura que permite ao clube evoluir com consistência.",
-  },
-  {
-    id: "tiago",
-    nome: "Tiago",
-    name: "Tiago",
-    role: "Atleta de arco composto / Treinador de arco composto",
-    foto: "assets/thiago.jpeg",
-    image: "assets/thiago.jpeg",
-    alt: "Tiago, atleta e treinador de arco composto da Órion Elite",
-    details: {
-      funcao: "Atleta e treinador",
-      modalidade: "Arco composto",
-      foco: "Desenvolvimento técnico e evolução esportiva",
-    },
-    description: "Atleta de arco composto e treinador, contribuindo para o desenvolvimento técnico e esportivo da equipe.",
-    biography: "Une prática competitiva e orientação técnica para fortalecer o desenvolvimento dos atletas e ampliar a qualidade do trabalho esportivo dentro da equipe.",
-  },
-];
-const supporterCards = [
-  { type: "logo", name: "Resolve Educação", image: "assets/resolve-educacao.png" },
-  { type: "reserved", text: "Esse espaço está guardado para você." },
-  { type: "reserved", text: "Esse espaço está guardado para você." },
-];
 
 function cx(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -240,7 +181,13 @@ function Hero() {
       h(
         "div",
         { className: "hero-copy-block" },
-        h("p", { className: "eyebrow reveal" }, "Clube de tiro com arco olímpico e paralímpico da Paraíba"),
+        h(
+          "p",
+          { className: "eyebrow reveal" },
+          "Clube de tiro com arco ",
+          h("span", { className: "hero-paralympic-word", "data-text": "paralímpico" }, "paralímpico"),
+          " e olímpico da Paraíba"
+        ),
         h(SplitText, { as: "h1", className: "hero-title", id: "hero-title" }, "Órion Elite"),
         h("p", { className: "hero-kicker reveal" }, "Foco. Precisão. Excelência."),
         h(
@@ -389,271 +336,6 @@ function Brand() {
 }
 
 
-function Team() {
-  const [activeAthlete, setActiveAthlete] = useState(null);
-  const [isReturningToLoop, setIsReturningToLoop] = useState(false);
-  const closeTimerRef = useRef(null);
-  const selectedAthlete = teamMembers.find((athlete) => athlete.id === activeAthlete);
-  const sideAthletes = selectedAthlete ? teamMembers.filter((athlete) => athlete.id !== selectedAthlete.id) : [];
-  const marqueeItems = [...teamMembers, ...teamMembers, ...teamMembers, ...teamMembers];
-
-  useEffect(() => () => window.clearTimeout(closeTimerRef.current), []);
-
-  const focusAthlete = (athleteId) => {
-    window.clearTimeout(closeTimerRef.current);
-    setIsReturningToLoop(false);
-    setActiveAthlete(athleteId);
-  };
-
-  const returnToLoop = () => {
-    if (!activeAthlete || isReturningToLoop) return;
-    setIsReturningToLoop(true);
-    window.clearTimeout(closeTimerRef.current);
-    closeTimerRef.current = window.setTimeout(() => {
-      setActiveAthlete(null);
-      setIsReturningToLoop(false);
-    }, 500);
-  };
-
-  const renderAthleteCard = (athlete, options = {}) =>
-    h(
-      "button",
-      {
-        className: cx("team-card transition-all duration-500 ease-in-out", options.className, options.active && "is-active"),
-        type: "button",
-        key: options.key || athlete.id,
-        onClick: () => (options.active ? returnToLoop() : focusAthlete(athlete.id)),
-        "aria-pressed": Boolean(options.active),
-        "aria-label": options.active ? `Fechar detalhes de ${athlete.nome}` : `Selecionar ${athlete.nome}`,
-      },
-      h("span", { className: "team-photo" }, h("img", { src: athlete.foto, alt: athlete.alt })),
-      h(
-        "span",
-        { className: "team-card-copy" },
-        h("strong", null, athlete.nome),
-        h("small", null, athlete.role)
-      )
-    );
-
-  return h(
-    "section",
-    { className: "team section-light", id: "equipe", "aria-labelledby": "team-title", onClick: () => activeAthlete && returnToLoop() },
-    h(
-      "div",
-      { className: "section-shell" },
-      h(
-        "div",
-        { className: "section-heading" },
-        h("p", { className: "eyebrow reveal" }, "Equipe e comunidade"),
-        h("h2", { className: "section-title reveal", id: "team-title" }, "Pessoas que sustentam a direção técnica e institucional da Órion"),
-        h("p", { className: "section-intro reveal" }, "Selecione um atleta para pausar o movimento e ver os detalhes de quem constrói a equipe.")
-      ),
-      !selectedAthlete &&
-        h(
-          "p",
-          { className: "team-hint reveal", "aria-live": "polite" },
-          "Selecione um atleta para ver detalhes"
-        ),
-      selectedAthlete
-        ? h(
-            "div",
-            { className: cx("athlete-focus-stage reveal is-visible transition-all duration-500 ease-in-out", isReturningToLoop && "is-returning"), onClick: (event) => event.stopPropagation() },
-            renderAthleteCard(sideAthletes[0], { className: "team-card-side is-left", key: `${sideAthletes[0].id}-side-left` }),
-            h(
-              "div",
-              { className: "athlete-focus-center transition-all duration-500 ease-in-out" },
-              renderAthleteCard(selectedAthlete, { active: true, className: "team-card-main", key: `${selectedAthlete.id}-main` }),
-              h(
-                "aside",
-                { className: "athlete-detail-panel athlete-side-panel transition-all duration-500 ease-in-out", "aria-label": `Informações de ${selectedAthlete.nome}` },
-                h(
-                  "div",
-                  { className: "athlete-panel-head" },
-                  h("p", { className: "eyebrow" }, "Painel lateral"),
-                  h("button", { type: "button", className: "team-detail-close", onClick: returnToLoop, "aria-label": "Voltar ao carrossel em loop" }, "× Voltar")
-                ),
-                h("span", { className: "athlete-panel-kicker" }, selectedAthlete.details.modalidade),
-                h("h3", null, selectedAthlete.nome),
-                h("p", null, selectedAthlete.biography),
-                h(
-                  "dl",
-                  { className: "athlete-detail-list" },
-                  h("div", null, h("dt", null, "Função"), h("dd", null, selectedAthlete.details.funcao)),
-                  h("div", null, h("dt", null, "Foco"), h("dd", null, selectedAthlete.details.foco)),
-                  h("div", null, h("dt", null, "Resumo"), h("dd", null, selectedAthlete.description))
-                )
-              )
-            ),
-            renderAthleteCard(sideAthletes[1], { className: "team-card-side is-right", key: `${sideAthletes[1].id}-side-right` })
-          )
-        : h(
-            "div",
-            {
-              className: "team-carousel reveal",
-              onClick: (event) => event.stopPropagation(),
-            },
-            h(
-              "div",
-              { className: "team-track", "aria-label": "Carrossel infinito de atletas" },
-              marqueeItems.map((athlete, index) => renderAthleteCard(athlete, { key: `${athlete.id}-${index}` }))
-            )
-          ),
-      h(
-        "div",
-        { className: "org-grid team-mentions", "aria-label": "Funções e pessoas sem foto" },
-        organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
-      )
-    )
-  );
-}
-
-
-function TeamCarouselInteractive() {
-  const [activeAthlete, setActiveAthlete] = useState(null);
-  const selectedAthlete = teamMembers.find((athlete) => athlete.id === activeAthlete);
-  const marqueeItems = [...teamMembers, ...teamMembers];
-
-  const renderAthleteCard = (athlete, index) => {
-    const isSelected = selectedAthlete?.id === athlete.id;
-    const hasSelection = Boolean(selectedAthlete);
-
-    return h(
-      "button",
-      {
-        className: cx(
-          "team-card transition-all duration-500 ease-in-out",
-          isSelected && "is-active",
-          hasSelection && !isSelected && "is-dimmed"
-        ),
-        type: "button",
-        key: `${athlete.id}-${index}`,
-        onClick: () => setActiveAthlete(athlete.id),
-        "aria-pressed": isSelected,
-        "aria-label": `Selecionar ${athlete.nome}`,
-      },
-      h("span", { className: "team-photo" }, h("img", { src: athlete.foto, alt: athlete.alt, loading: "lazy" })),
-      h(
-        "span",
-        { className: "team-card-copy" },
-        h("strong", null, athlete.nome),
-        h("small", null, athlete.role)
-      )
-    );
-  };
-
-  return h(
-    "section",
-    { className: "team section-light", id: "equipe", "aria-labelledby": "team-title" },
-    h(
-      "div",
-      { className: "section-shell" },
-      h(
-        "div",
-        { className: cx("section-heading", selectedAthlete && "has-athlete-panel") },
-        h("p", { className: "eyebrow reveal" }, "Equipe e comunidade"),
-        h("h2", { className: "section-title reveal", id: "team-title" }, "Pessoas que sustentam a direÃ§Ã£o tÃ©cnica e institucional da Ã“rion"),
-        h("p", { className: "section-intro reveal" }, "Selecione um atleta para pausar o movimento e ver os detalhes de quem constrÃ³i a equipe.")
-      ),
-      h(
-        "p",
-        { className: cx("team-hint reveal", selectedAthlete && "is-muted"), "aria-live": "polite" },
-        selectedAthlete ? "Carrossel pausado. Feche o painel para retomar." : "Selecione um atleta para ver detalhes"
-      ),
-      h(
-        "div",
-        { className: cx("athlete-carousel-stage reveal", selectedAthlete && "has-selection") },
-        h(
-          "div",
-          { className: cx("team-carousel scroll-container", selectedAthlete && "is-paused") },
-          h(
-            "div",
-            {
-              className: "team-track infinite-scroll",
-              "aria-label": "Carrossel infinito de atletas",
-              style: { animationPlayState: selectedAthlete ? "paused" : "running" },
-            },
-            marqueeItems.map(renderAthleteCard)
-          )
-        ),
-        h(
-          "aside",
-          {
-            className: cx("athlete-detail-panel athlete-side-panel transition-all duration-500 ease-in-out", selectedAthlete && "is-open"),
-            "aria-hidden": selectedAthlete ? "false" : "true",
-            "aria-label": selectedAthlete ? `InformaÃ§Ãµes de ${selectedAthlete.nome}` : "InformaÃ§Ãµes do atleta selecionado",
-          },
-          selectedAthlete &&
-            h(
-              React.Fragment,
-              null,
-              h(
-                "div",
-                { className: "athlete-panel-head" },
-                h("p", { className: "eyebrow" }, "Painel lateral"),
-                h("button", { type: "button", className: "team-detail-close", onClick: () => setActiveAthlete(null), "aria-label": "Fechar detalhes do atleta" }, "Ã—")
-              ),
-              h("img", { className: "athlete-panel-photo", src: selectedAthlete.foto, alt: selectedAthlete.alt }),
-              h("span", { className: "athlete-panel-kicker" }, selectedAthlete.details.modalidade),
-              h("h3", null, selectedAthlete.nome),
-              h("p", null, selectedAthlete.biography),
-              h(
-                "dl",
-                { className: "athlete-detail-list" },
-                h("div", null, h("dt", null, "FunÃ§Ã£o"), h("dd", null, selectedAthlete.details.funcao)),
-                h("div", null, h("dt", null, "Foco"), h("dd", null, selectedAthlete.details.foco)),
-                h("div", null, h("dt", null, "Resumo"), h("dd", null, selectedAthlete.description))
-              )
-            )
-        )
-      ),
-      h(
-        "div",
-        { className: "org-grid team-mentions", "aria-label": "FunÃ§Ãµes e pessoas sem foto" },
-        organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
-      )
-    )
-  );
-}
-
-const athleteProfiles = [
-  {
-    id: "sued",
-    name: "Sued Emmanuel Espinola",
-    shortName: "Sued",
-    role: "Atleta paralímpico / Presidente",
-    image: "assets/sued.jpeg",
-    alt: "Sued Emmanuel Espinola, atleta paralimpico e presidente da Orion Elite",
-    headline: "Primeiro atleta paralímpico de tiro com arco da Paraíba com formação de instrutor nível 1 e 2.",
-    summary:
-      "Conheceu o tiro com arco em 2023 e rapidamente se tornou uma das bases competitivas e institucionais da Órion. Foi campeão brasileiro Barebow em 2024, campeão paraibano indoor e outdoor em 2025 e conquistou resultados nacionais que o levaram à seletiva da Seleção Brasileira Paralímpica.",
-    facts: ["Campeão brasileiro Barebow 2024", "Campeão paraibano indoor e outdoor", "Integrante de projeto de alto rendimento na UFPB"],
-  },
-  {
-    id: "daniel",
-    name: "Daniel Simoes Gomide",
-    shortName: "Daniel",
-    role: "Diretor técnico",
-    image: "assets/daniel-gomide.jpeg",
-    alt: "Daniel Simoes Gomide, diretor tecnico da Orion Elite",
-    headline: "Educador físico, instrutor nível 2, juiz estadual e técnico de atletas de alto rendimento.",
-    summary:
-      "Daniel conecta formação técnica, experiência como atleta e gestão esportiva. É campeão paraibano outdoor 2025 no recurvo masculino adulto, técnico do Bolsa Esporte Paraíba e atuou diretamente na preparação de Sued Emmanuel em conquistas estaduais e nacionais.",
-    facts: ["Bacharel em Educação Física", "Instrutor nível 2 Brasil Arco / CBTARCO", "Técnico premiado no Esporte Paraibano 2024"],
-  },
-  {
-    id: "tiago",
-    name: "Thiago Silva",
-    shortName: "Tiago",
-    role: "Atleta e treinador de arco composto",
-    image: "assets/thiago.jpeg",
-    alt: "Thiago Silva, atleta e treinador de arco composto da Orion Elite",
-    headline: "Atleta multicampeão paraibano e formador de talentos no tiro com arco.",
-    summary:
-      "Thiago tem uma trajetória extensa no arco composto, com títulos estaduais indoor e outdoor em diversas temporadas e medalhas em Copas Nordeste e Norte-Nordeste. Como treinador, participou da formação de atletas campeões brasileiros de base e ajudou a desenvolver o esporte na Paraíba.",
-    facts: ["Multicampeão paraibano indoor e outdoor", "Medalhista em Copas Nordeste", "Fundador e ex-presidente da FPBTARCO"],
-  },
-];
-
 const athleteProfilesCompact = [
   {
     id: "sued",
@@ -680,13 +362,46 @@ const athleteProfilesCompact = [
   {
     id: "tiago",
     name: "Thiago Silva",
-    shortName: "Tiago",
+    shortName: "Thiago",
     role: "Atleta e treinador de arco composto",
     image: "assets/thiago.jpeg",
     alt: "Thiago Silva, atleta e treinador de arco composto da Órion Elite",
     headline: "Atleta multicampeão paraibano e formador de talentos.",
     summary: "Thiago representa experiência no arco composto. Soma títulos estaduais, medalhas regionais e atuação direta na formação de atletas na Paraíba.",
     facts: ["Títulos indoor e outdoor", "Medalhas em Copas Nordeste", "Ex-presidente da FPBTARCO"],
+  },
+  {
+    id: "roberto",
+    name: "Roberto Figueiroa",
+    shortName: "Roberto",
+    role: "Atleta de tiro com arco paralímpico",
+    image: "assets/roberto.jpeg",
+    alt: "Roberto Figueiroa, atleta de tiro com arco paralímpico da Órion Elite",
+    headline: "Atleta paralímpico com pódios nacionais e participação nos Meets Paraolímpicos Loterias Caixa.",
+    summary: "Roberto reúne resultados nacionais em Barebow e Recurvo: foi 3º por equipes em 2024, 3º individual e campeão por equipes em 2025, além de 4º por equipes em 2026. Também conquistou pódios nos Meets Paraolímpicos Loterias Caixa entre 2024 e 2025.",
+    facts: ["3º por equipes no Brasileiro Barebow 2024", "3º individual e campeão por equipes no Brasileiro Barebow 2025", "1º em Pernambuco e Natal/RN nos Meets Paraolímpicos Loterias Caixa 2025"],
+  },
+  {
+    id: "igor",
+    name: "Igor",
+    shortName: "Igor",
+    role: "Atleta da Órion Elite",
+    image: "assets/Igor.jpeg",
+    alt: "Igor, atleta da Órion Elite",
+    headline: "Atleta da instituição.",
+    summary: "Perfil em atualização.",
+    facts: [],
+  },
+  {
+    id: "leon",
+    name: "Leon",
+    shortName: "Leon",
+    role: "Atleta da Órion Elite",
+    image: "assets/Leon.jpeg",
+    alt: "Leon, atleta da Órion Elite",
+    headline: "Atleta da instituição.",
+    summary: "Perfil em atualização.",
+    facts: [],
   },
 ];
 
@@ -744,7 +459,7 @@ function TeamCommunityRefined() {
         h(
           "div",
           {
-            className: "team-track infinite-scroll",
+            className: "infinite-scroll",
             "aria-label": "Carrossel infinito de atletas",
             style: { animationPlayState: selectedAthlete ? "paused" : "running" },
           },
@@ -778,37 +493,6 @@ function TeamCommunityRefined() {
       { className: "section-shell team-mentions-shell" },
       h("div", { className: "org-grid team-mentions", "aria-label": "Funções e pessoas da equipe e comunidade" },
         organization.map(([role, name]) => h("article", { className: "org-card reveal", key: `${role}-${name}` }, h("span", null, role), h("strong", null, name)))
-      )
-    )
-  );
-}
-
-function Supporters() {
-  return h(
-    "section",
-    { className: "supporters section-light", id: "apoiadores", "aria-labelledby": "supporters-title" },
-    h(
-      "div",
-      { className: "section-shell" },
-      h(
-        "div",
-        { className: "section-heading narrow" },
-        h("p", { className: "eyebrow reveal" }, "Apoiadores"),
-        h("h2", { className: "section-title reveal", id: "supporters-title" }, "Empresas que acreditam no crescimento da Órion"),
-        h("p", { className: "section-intro reveal" }, "Apoiadores ajudam a transformar estrutura, treinamento e oportunidade em evolução real para a modalidade.")
-      ),
-      h(
-        "div",
-        { className: "supporter-grid" },
-        supporterCards.map((card, index) =>
-          h(
-            "article",
-            { className: cx("supporter-card reveal", card.type === "reserved" && "is-reserved"), key: `${card.type}-${index}` },
-            card.type === "logo"
-              ? h(React.Fragment, null, h("img", { src: card.image, alt: card.name }), h("span", null, card.name))
-              : h("p", null, card.text)
-          )
-        )
       )
     )
   );
