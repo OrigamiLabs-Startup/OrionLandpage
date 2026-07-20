@@ -1293,6 +1293,37 @@ a {
 .footer-inner > p:last-child {
   text-align: right;
 }
+.footer-credit {
+  width: min(100% - 40px, var(--max));
+  margin: 0 auto;
+  padding: 14px 0 20px;
+  border-top: 1px solid rgba(192, 160, 90, 0.16);
+  color: rgba(237, 232, 218, 0.62);
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.footer-credit a {
+  color: rgba(237, 232, 218, 0.68);
+  text-decoration-line: underline;
+  text-decoration-color: rgba(192, 160, 90, 0.55);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.footer-credit a:hover,
+.footer-credit a:focus-visible {
+  color: var(--gold-2);
+  text-decoration-color: currentColor;
+}
+
+.footer-credit a:focus-visible {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 3px;
+}
 
 .js .reveal,
 .js .line-reveal,

@@ -614,6 +614,13 @@ function Footer() {
       h("div", null, h("strong", null, "Órion Elite"), h("p", null, "Foco. Precisão. Excelência.")),
       h("nav", { "aria-label": "Links do rodapé" }, h("a", { href: "#inicio" }, "Início"), h("a", { href: "#historia" }, "História"), h("a", { href: "#marca" }, "Marca"), h("a", { href: "#contato" }, "Contato")),
       h("p", null, "© 2026 Órion Elite. CNPJ 64.505.635/0001-23.")
+    ),
+    h(
+      "p",
+      { className: "footer-credit" },
+      "Página desenvolvida pela ",
+      h("a", { href: "https://origamilab.vercel.app/" }, "Origami Lab"),
+      "."
     )
   );
 }
